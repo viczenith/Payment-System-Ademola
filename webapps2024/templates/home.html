@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Service System</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand " style="color: rgb(0, 112, 186);" href="#">My Payment System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon hamburger bg-primary"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link login wallet" href="{% url 'profile' %}">Enter Wallet</a>
+            </li>
+           
+            {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link logout bg-danger" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link login" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link register" href="{% url 'register' %}">Sign Up</a>
+            </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <section class="hero-section text-center">
+        <div class="jumbotron">
+            {% if user.is_authenticated %}
+            <h1 class="display-4">Hi <span class="text-light bg-danger px-2">{{user.username}}</span>,</h1>
+            {% else %}
+            <h1 class="display-4">Welcome to My Payment System</h1>
+            {% endif %}
+            
+            <p class="lead">Secure, fast, and easy online payments</p>
+            {% if user.is_authenticated %}
+            <a class="btn btn-lg gstarted" href="{% url 'profile' %}" role="button">Enter Your Wallet</a>
+            {% else %}
+            <a class="btn btn-lg gstarted" href="{% url 'register' %}" role="button">Sign Up for Free</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="">
+            <div class="feature text-center">
+                <h2 class="mb-5">MPS is for everyone who pays online.</h2>
+                <img src="https://www.paypalobjects.com/digitalassets/c/website/marketing/emea/gb/en/home/1-individuals.jpg" class="img-fluid mb-3" alt="">
+                <p class="mb-3">Find out why we have more than 200M active accounts worldwide.</p>
+                <a class="btn btn-lg login mb-5" href="#" role="button">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-three p-5">
+        <h1 class="text-center display-6 mb-5 p-5">Join 200M active MPS accounts worldwide.</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="feature text-center">
+                    <h2>Send Money</h2>
+                    <p>Send money to friends and family in a few clicks.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature text-center">
+                    <h2>Request Money</h2>
+                    <p>Request money easily with Payment Service System.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <style>
+        .hamburger{
+            color: rgb(0, 112, 186) !important;
+            border: 1px solid rgb(0, 112, 186) !important;
+        }
+        .login, .register, .logout {
+            font-size: 12px;
+            font-weight: 900 !important;
+            border: 1px solid rgb(0, 112, 186);
+            color: rgb(0, 112, 186) !important;
+            padding: 12px 18px !important;
+            border-radius: 50px;
+        }
+        .logout{
+            outline-color: none !important;
+            color: #fff !important;
+        }
+        .register{
+            background-color: rgb(0, 112, 186);
+            color: #fff !important;
+            margin-left: 12px;
+        }
+        .register:hover{
+            background-color: rgb(2, 101, 167);
+            color: #fff !important;
+            
+        }
+        .gstarted{
+            background-color: rgb(0, 112, 186);
+            color: white;
+            padding-top: 13px !important;
+            padding-bottom: 15px !important;
+            padding-left: 5rem !important;
+            padding-right: 5rem !important;
+            border-radius: 50px;
+        }
+        .gstarted:hover{
+            background-color: rgb(2, 101, 167);
+            color: white;
+        }
+        .features-section div h2{
+            color: rgb(44, 46, 47) !important;
+            font-weight: 400 !important;
+            font-size: 39.998px !important;
+            letter-spacing: 0.79996px !important;
+        }
+        .section-three{
+            background-color: rgb(2, 101, 167);
+            color: #fff;
+        }
+        </style>
+</div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

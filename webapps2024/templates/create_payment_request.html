@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Payment Request</title>
+    </head>
+    
+    <body>
+        <div class="container">
+            <h1>Create Payment Request</h1>
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+    
+            <footer class="footer">
+                <p><a href="{% url 'profile' %}" class="home-link">Go back to profile</a></p>
+            </footer>
+        </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .home-link {
+            text-decoration: none;
+            color: #007bff;
+        }
+        form label {
+          display: block;
+          font-weight: bold;
+          color: #1397d7;
+        }
+      
+        form input {
+          width: 90%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+        }
+        select,input {
+            width: 94%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+        }
+      
+        select option {
+          padding: 10px 20px;
+          color: #0070ba;
+          background-color: #f9f9f9;
+          font-family: sans-serif;
+          font-size: 16px;
+        }
+        option:checked {
+          background-color: #0070ba;
+          color: #fff;
+        }
+        button[type="submit"] {
+          padding: 10px 20px;
+          background-color: #0070ba;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        button[type="submit"]:hover {
+          background-color: #005ea6;
+        }
+    </style>
+</body>
+</html>
+

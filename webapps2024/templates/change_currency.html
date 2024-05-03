@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Currency</title>
+</head>
+
+<body>
+    <div class="convert-money-container">
+        <h1>Convert Currency</h1>
+        <form action="{% url 'change_currency' %}" method="POST">
+            {% csrf_token %}
+            <label for="new_currency">Convert to:</label>
+            <select name="new_currency" id="new_currency">
+                <option value="£">British Pound</option>
+                <option value="$">US Dollar</option>
+                <option value="€">Euro</option>
+            </select>
+            <button type="submit">Convert</button>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </form>
+
+        <footer class="footer">
+            <p><a href="{% url 'profile' %}" class="back-link">Back to Profile</a></p>
+        </footer>
+    </div>
+    <style>
+        form label {
+          display: block;
+          font-weight: bold;
+          color: #1397d7;
+        }
+      
+        form input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+        }
+      
+        form input {
+          outline-color: #1397d7 !important;
+        }
+      
+        .convert-money-container {
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+        }
+      
+        .transfer-money-container h2 {
+          margin-bottom: 20px;
+        }
+      
+        .form-group {
+          margin-bottom: 20px;
+        }
+      
+        select,
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+        }
+      
+        select option {
+          padding: 10px 20px;
+          color: #0070ba;
+          background-color: #f9f9f9;
+          font-family: sans-serif;
+          font-size: 16px;
+        }
+      
+        option:checked {
+          background-color: #0070ba;
+          color: #fff;
+        }
+      
+        button[type="submit"] {
+          padding: 10px 20px;
+          background-color: #0070ba;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin-top: 1rem;
+        }
+      
+        button[type="submit"]:hover {
+          background-color: #005ea6;
+        }
+      
+        .back-link {
+          color: #0070ba;
+          text-decoration: none;
+        }
+      
+        .back-link:hover {
+          text-decoration: underline;
+        }
+      </style>
+</body>
+
+</html>

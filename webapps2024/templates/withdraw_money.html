@@ -1,0 +1,75 @@
+{% block content %}
+<div class="withdraw-money-container">
+  <h2>Withdraw Money</h2>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form method="post" action="{% url 'withdraw_money' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="amount">Withdrawal Amount:</label>
+      <input type="number" name="amount" id="amount" class="form-control" required>
+    </div>
+    <button type="submit" class="btn withdraw-btn">Withdraw</button>
+  </form>
+  <p><a href="{% url 'profile' %}" class="back-link">Back to Profile</a></p>
+</div>
+<style>
+  .withdraw-money-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .withdraw-money-container h2 {
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0070ba;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #005ea6;
+  }
+
+  .back-link {
+    color: #0070ba;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}

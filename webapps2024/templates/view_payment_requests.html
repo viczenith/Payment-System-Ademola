@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Payment Requests</title>
+    
+</head>
+<body>
+    <h1>Payment Requests</h1>
+    
+    <ul>
+        <div class="container">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% for payment_request in payment_requests %}
+    
+            <li>
+            <strong>{{ payment_request.requester }}</strong> requested <strong>${{ payment_request.amount }}</strong>, <strong>{{ payment_request.description }}</strong>
+            <form action="{% url 'accept_payment_request' payment_request.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{% url 'reject_payment_request' payment_request.id %}" method="post">
+                {% csrf_token %}
+                <button class="reject" type="submit">Reject</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <footer class="footer">
+        <p><a href="{% url 'profile' %}" class="home-link">Go back to profile</a></p>
+    </footer>
+        </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        strong {
+            color: #007bff;
+        }
+        form {
+            display: inline-block;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .reject{
+            background-color: rgb(253, 49, 49);
+        }
+        .reject:hover{
+            background-color: rgb(219, 28, 28);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .home-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</body>
+</html>

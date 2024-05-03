@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>User Profile</h1>
+        </header>
+        {% if messages %}
+        <ul class="notifications">
+            {% for message in messages %}
+            <li class="notification {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="content">
+            {% if user.is_authenticated %}<div class="user-info">
+                <p>Welcome, <strong>{{ user.username }}</strong>!</p>
+                <p>Email: <strong>{{ user.email }}</strong></p>
+                <p>Total Balance: <strong> {{ user.change_currency }} {{ user.profile.total_balance }}</strong></p>
+            </div>
+            <div class="transaction-history">
+                <h2>Transactions</h2>
+                <ul>
+                    {% for transaction in user.profile.transactions.all %}
+                    <li>{{ transaction.transaction_type }}: ${{ transaction.amount }} - {{ transaction.timestamp }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="actions">
+                <p><a href="{% url 'deposit_money' %}" class="action-link">Deposit Money</a></p>
+                <p><a href="{% url 'withdraw_money' %}" class="action-link">Withdraw Money</a></p>
+                <p><a href="{% url 'transfer_money' %}" class="action-link">Transfer Money</a></p>
+                <p><a href="{% url 'change_currency' %}" class="action-link">Change Currency</a></p>
+                <p><a href="{% url 'create_payment_requests' %}" class="action-link">Create Payment Request</a></p>
+                <p><a href="{% url 'view_payment_requests' %}" class="action-link">View Payment Request</a></p>
+            </div>
+            {% else %}
+            <p>Unauthorized access. Please <a href="{% url 'login' %}" class="login-link">log in</a>.</p>
+            {% endif %}
+        </div>
+        <footer class="footer">
+            <p><a href="/" class="home-link">Go back to home</a></p>
+        </footer>
+
+        <div class="transaction-summary">
+            <h2>Transaction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Type</th>
+                        <th>Amount</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in user.sent_transactions.all %}
+                    <tr>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>${{ transaction.amount }}</td>
+                        <td>{{ transaction.sender.username }}</td>
+                        <td>{{ transaction.receiver.username }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for transaction in user.received_transactions.all %}
+                    <tr>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>${{ transaction.amount }}</td>
+                        <td>{{ transaction.sender.username }}</td>
+                        <td>{{ transaction.receiver.username }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .user-info p {
+            margin-bottom: 10px;
+        }
+
+        .transaction-history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .transaction-history ul li {
+            margin-bottom: 5px;
+        }
+
+        .actions {
+            margin-top: 30px;
+        }
+
+        .action-link {
+            color: #fff;
+            background-color: #0070ba;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .action-link:hover {
+            background-color: #005ea6;
+        }
+
+        .login-link {
+            color: #0070ba;
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .home-link {
+            color: #0070ba;
+            text-decoration: none;
+        }
+
+
+        .transaction-summary {
+            margin-top: 30px;
+        }
+
+        .transaction-summary h2 {
+            margin-bottom: 20px;
+        }
+
+        .transaction-summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-summary th,
+        .transaction-summary td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .transaction-summary th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .transaction-summary tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .transaction-summary tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</body>
+
+</html>

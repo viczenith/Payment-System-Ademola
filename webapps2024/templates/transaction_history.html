@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Transaction History</h2>
+  <ul>
+    {% for transaction in transactions %}
+      <li>{{ transaction }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

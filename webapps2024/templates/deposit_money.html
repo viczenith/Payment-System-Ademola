@@ -1,0 +1,91 @@
+
+{% block content %}
+  <div class="deposit-money-container">
+    <h2>Deposit Money</h2>
+
+    <form method="post" action="{% url 'deposit_money' %}">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}" >{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <small class="text-danger">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+        </div>
+     {% endfor %}
+      <button type="submit" class="btn deposit-btn">Deposit</button>
+    </form>
+    <p><a href="{% url 'profile' %}" class="back-link">Back to Profile</a></p>
+  </div>
+
+
+  <style>
+    form label {
+      display: block;
+      font-weight: bold;
+      color: #1397d7;
+    }
+  
+    form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  
+    form input {
+      outline-color: #1397d7 !important;
+    }
+  
+    .deposit-money-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  
+    .deposit-money-container h2 {
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 20px;
+    }
+  
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #0070ba;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    button[type="submit"]:hover {
+      background-color: #005ea6;
+    }
+  
+    .back-link {
+      color: #0070ba;
+      text-decoration: none;
+    }
+  
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+{% endblock %}
